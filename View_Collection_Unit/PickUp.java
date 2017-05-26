@@ -117,7 +117,7 @@ public class PickUp extends AppCompatActivity implements AdapterView.OnItemSelec
                                Suggestion : display Confirmed : 2 abc instead of --
                                Solution : checking if confirm field is 1 (confirm).
                             */
-                            points[i] = ("Confirmed : " + id + " " + name);
+                            points[i] = ("Confirmed: "+id + " " + name );
                             counter++;
                             }
 
