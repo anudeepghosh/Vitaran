@@ -174,20 +174,6 @@ String dlat,dlng;
 
 
 
-
-               Spinner spinner = (Spinner)findViewById(R.id.sitem);
-               String sitemtext = spinner.getSelectedItem().toString();
-
-
-                if(edetails.getText().toString().isEmpty() && sitemtext.equalsIgnoreCase("Others")){
-                    focusView = edetails;
-                    edetails.setError("Cannot Be Blank!");
-                    Toast.makeText(getBaseContext(),"Item name cannot be Other, must enter New Item Name",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-
   /*
         Bug-ID 114 related to testcase Quarks-36
         Bug :  Incorrect confirmation toast when location is null
@@ -201,11 +187,18 @@ String dlat,dlng;
                     return;
                 }
 
-
+                if(edetails.getVisibility()==View.VISIBLE){
+                    iname=edetails.getText().toString();
+                    if(iname.isEmpty()){
+                        focusView = edetails;
+                        edetails.setError("Cannot Be Blank!");
+                        Toast.makeText(getBaseContext(),"Item Name cannot be empty",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 Toast.makeText(getBaseContext(),"Item Succesfully added",Toast.LENGTH_LONG).show();
                 count++;
-                if(edetails.getVisibility()==View.VISIBLE)
-                    iname=edetails.getText().toString();
+
                 //trystart
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, donationURL, new Response.Listener<String>() {
@@ -269,7 +262,7 @@ String dlat,dlng;
                     for(int i=0;i<items.length();i++)
                     {
                         JSONObject cat = items.getJSONObject(i);
-                        String name = cat.getString("Category");
+                        String name = cat.getString("tag");
                         //Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
                         arrcat[i]= name;
                     }
@@ -434,6 +427,12 @@ String dlat,dlng;
             if(iname.equals("Others")){
               edetails.setVisibility(View.VISIBLE);
               }
+              else
+
+            {
+                edetails.setVisibility(View.INVISIBLE);
+
+            }
            // Toast.makeText(parent.getContext(), "Item Selected: " + iname, Toast.LENGTH_SHORT).show();
         }
 
